@@ -16,7 +16,7 @@ mirroring real PACS architecture fundamentals.
 |-------|-------------|--------|
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
-| Stage 3 | Network Configuration | 🔲 Not Started |
+| Stage 3 | Network Configuration | 🔲 In Progress |
 | Stage 4 | PostgreSQL Install and Configuration | 🔲 Not Started |
 | Stage 5 | Orthanc Install and Initial Configuration | 🔲 Not Started |
 | Stage 6 | Validation | 🔲 Not Started |
@@ -73,10 +73,22 @@ mirroring real PACS architecture fundamentals.
     - ens34: DOWN — VMnet2 PACS segment (no IP assigned — pending Stage 3)
 - Stage 2 status: ✅ Complete
 
-### 2026-05-16 — Documentation: Phase 1 Stage 1-2 screenshots curated
+### 2026-05-16 — Documentation: Phase 1 Stage 1-2 screenshots curated and committed
 
-- Screenshots captured across Stage 1 and Stage 2 installer workflow
-- Curated set selected — routine installer steps excluded
-- Kept screenshots cover: deliberate configuration decisions and validation output
-- Target directory: infrastructure/screenshots/phase1-stage1/ and phase1-stage2/
-- Commit pending: screenshots being renamed and organized
+- Stage 1 screenshots: 4 kept, committed to infrastructure/screenshots/phase1-stage1/
+- Stage 2 screenshots: 8 kept, committed to infrastructure/screenshots/phase1-stage2/
+- Routine installer steps excluded — only configuration decisions and
+  validation outputs retained
+
+### 2026-05-17 — Management node established for lab administration
+
+- RHEL 10 control node configured on same VMnet8 NAT segment
+- Hostname: rhcontrol | IP: 192.168.175.140 (DHCP)
+- Purpose: SSH administration, copy/paste capable terminal sessions,
+  future Ansible automation target
+- Connectivity verified: ping and SSH to orthanc-primary (192.168.175.128)
+  confirmed successful from control node
+- SSH fingerprint accepted and persisted to known_hosts
+- All subsequent lab administration performed from rhcontrol via SSH
+- orthanc-primary management IP confirmed: 192.168.175.128 (DHCP via VMnet8)
+- OS release confirmed via SSH: Ubuntu 24.04.4 LTS (Noble Numbat)
