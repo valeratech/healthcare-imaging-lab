@@ -17,7 +17,7 @@ mirroring real PACS architecture fundamentals.
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
 | Stage 3 | Network Configuration | ✅ Complete |
-| Stage 4 | PostgreSQL Install and Configuration | 🔲 Not Started |
+| Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
 | Stage 5 | Orthanc Install and Initial Configuration | 🔲 Not Started |
 | Stage 6 | Validation | 🔲 Not Started |
 
@@ -116,3 +116,30 @@ mirroring real PACS architecture fundamentals.
 - stage3-04-netplan-pacs-static-config.png — 99-pacs-static.yaml created
 - stage3-05-ens34-static-ip-verified.png — 192.168.100.10/24 UP confirmed
 - Committed to infrastructure/screenshots/phase1-stage3/
+
+### 2026-05-17 — Stage 4 complete: PostgreSQL installed and configured on orthanc-primary
+
+- PostgreSQL version: 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)
+- Cluster: postgresql@16-main — active (running), enabled at boot
+- Database created: orthanc
+- Owner: orthanc
+- Encoding: UTF8
+- Dedicated user created: orthanc
+- Privileges: CTc on orthanc database
+- Connection test: psql -U orthanc -h localhost -d orthanc
+  - current_database: orthanc — confirmed
+  - current_user: orthanc — confirmed
+  - Password authentication: successful
+- Connection string validated — ready for Orthanc plugin configuration
+- Stage 4 status: ✅ Complete
+
+### 2026-05-17 — Documentation: Phase 1 Stage 4 screenshots curated and committed
+
+- 6 screenshots kept — execution order sequence
+- stage4-01-postgresql-apt-install.png — apt install postgresql command
+- stage4-02-postgresql-install-complete.png — installation output complete
+- stage4-03-postgresql-service-status.png — systemctl status postgresql
+- stage4-04-postgresql-cluster-version.png — cluster status and version confirmed
+- stage4-05-orthanc-db-user-provisioned.png — database, user, privileges created
+- stage4-06-orthanc-db-connection-verified.png — connection test confirmed
+- Committed to infrastructure/screenshots/phase1-stage4/
