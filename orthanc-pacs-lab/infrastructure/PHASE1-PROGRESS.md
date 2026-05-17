@@ -5,8 +5,8 @@
 mirroring real PACS architecture fundamentals.
 
 **Environment:**
-- Hypervisor: VMware Workstation
-- OS: Ubuntu 24.04 LTS
+- Hypervisor: VMware Workstation Pro 26H1
+- OS: Ubuntu 24.04.4 LTS
 - Backend: PostgreSQL
 - Network: VMnet8 (NAT/internet) + VMnet2 (PACS segment, 192.168.100.0/24)
 
@@ -15,7 +15,7 @@ mirroring real PACS architecture fundamentals.
 | Stage | Description | Status |
 |-------|-------------|--------|
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
-| Stage 2 | Ubuntu 24.04 OS Install | 🔲 Not Started |
+| Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
 | Stage 3 | Network Configuration | 🔲 Not Started |
 | Stage 4 | PostgreSQL Install and Configuration | 🔲 Not Started |
 | Stage 5 | Orthanc Install and Initial Configuration | 🔲 Not Started |
@@ -25,7 +25,7 @@ mirroring real PACS architecture fundamentals.
 
 ### 2026-05-16 — Repository initialized, Phase 1 scope defined
 
-- Hypervisor: VMware Workstation
+- Hypervisor: VMware Workstation Pro 26H1
 - VMnet2 created: Host-only, no host adapter, no DHCP, 192.168.100.0/24
 - VMnet8: NAT — internet access for package management
 - Node 1 target hostname: orthanc-primary | IP: 192.168.100.10
@@ -38,9 +38,45 @@ mirroring real PACS architecture fundamentals.
 ### 2026-05-16 — Stage 1 complete: orthanc-primary VM created
 
 - VM name: orthanc-primary
-- CPUs: 2 cores | RAM: 4096 MB | Disk: 40GB single file
+- CPUs: 2 cores | RAM: 4096 MB | Disk: 40GB single file SCSI
 - NIC 1: VMnet8 (NAT) — internet access
 - NIC 2: VMnet2 (Host-only, isolated) — PACS segment
-- Ubuntu 24.04 LTS server ISO attached: ubuntu-24.04.4-live-server-amd64.iso
+- Ubuntu 24.04.4 LTS server ISO attached: ubuntu-24.04.4-live-server-amd64.iso
 - Connect at power on: confirmed
 - Stage 1 status: ✅ Complete
+
+### 2026-05-16 — Stage 2 complete: Ubuntu 24.04.4 LTS installed on orthanc-primary
+
+- OS: Ubuntu 24.04.4 LTS — minimized server install
+- Kernel: Linux 6.8.0-117-generic x86_64
+- Hostname confirmed: orthanc-primary
+- Username: valeratech
+- Virtualization detected: vmware
+- Installation type: Ubuntu Server (minimized) — reduced runtime footprint
+- Installer update: skipped — continued without updating to 24.04.4.1
+- Proxy: none configured
+- Mirror: http://archive.ubuntu.com/ubuntu — connectivity confirmed during install
+- Storage: /dev/sda 40GB — simple partition layout
+  - Partition 1: BIOS grub spacer 1MB
+  - Partition 2: ext4 mounted at / — 39.997GB
+  - LVM: deliberately not configured — lab simplification
+  - Note: Production PACS archive servers use LVM for online volume expansion.
+    Deliberate tradeoff accepted for lab environment.
+- OpenSSH server: installed and active
+- Password authentication over SSH: enabled
+- Featured snaps: none installed — explicit packages only
+- Post-install validation:
+  - hostnamectl: Static hostname orthanc-primary confirmed
+  - ip link show:
+    - lo: UP — loopback
+    - ens33: UP — VMnet8 NAT interface (internet)
+    - ens34: DOWN — VMnet2 PACS segment (no IP assigned — pending Stage 3)
+- Stage 2 status: ✅ Complete
+
+### 2026-05-16 — Documentation: Phase 1 Stage 1-2 screenshots curated
+
+- Screenshots captured across Stage 1 and Stage 2 installer workflow
+- Curated set selected — routine installer steps excluded
+- Kept screenshots cover: deliberate configuration decisions and validation output
+- Target directory: infrastructure/screenshots/phase1-stage1/ and phase1-stage2/
+- Commit pending: screenshots being renamed and organized
