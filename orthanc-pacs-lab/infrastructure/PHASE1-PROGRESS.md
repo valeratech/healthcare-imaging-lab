@@ -16,7 +16,7 @@ mirroring real PACS architecture fundamentals.
 |-------|-------------|--------|
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
-| Stage 3 | Network Configuration | 🔲 In Progress |
+| Stage 3 | Network Configuration | ✅ Complete |
 | Stage 4 | PostgreSQL Install and Configuration | 🔲 Not Started |
 | Stage 5 | Orthanc Install and Initial Configuration | 🔲 Not Started |
 | Stage 6 | Validation | 🔲 Not Started |
@@ -92,3 +92,27 @@ mirroring real PACS architecture fundamentals.
 - All subsequent lab administration performed from rhcontrol via SSH
 - orthanc-primary management IP confirmed: 192.168.175.128 (DHCP via VMnet8)
 - OS release confirmed via SSH: Ubuntu 24.04.4 LTS (Noble Numbat)
+
+### 2026-05-17 — Stage 3 complete: Network configuration applied on orthanc-primary
+
+- Existing Netplan file: /etc/netplan/50-cloud-init.yaml — ens33 DHCP only
+- 50-cloud-init.yaml not modified — managed by cloud-init, overwrite risk
+- New Netplan file created: /etc/netplan/99-pacs-static.yaml
+- ens34 configured: static IP 192.168.100.10/24, dhcp4 disabled
+- Permissions set: 600 on 99-pacs-static.yaml
+- netplan apply executed — no errors
+- Post-apply validation:
+  - ens34: UP
+  - inet 192.168.100.10/24 — confirmed
+  - valid_lft forever — static assignment confirmed
+- Stage 3 status: ✅ Complete
+
+### 2026-05-17 — Documentation: Phase 1 Stage 3 screenshots curated and committed
+
+- 5 screenshots kept — execution order sequence
+- stage3-01-pre-state-configuration-ens34.png — baseline ens34 DOWN state
+- stage3-02-ssh-access-os-verified.png — SSH established, OS confirmed
+- stage3-03-netplan-cloud-init-existing.png — existing Netplan inspected
+- stage3-04-netplan-pacs-static-config.png — 99-pacs-static.yaml created
+- stage3-05-ens34-static-ip-verified.png — 192.168.100.10/24 UP confirmed
+- Committed to infrastructure/screenshots/phase1-stage3/
