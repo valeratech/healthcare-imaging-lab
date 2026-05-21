@@ -18,7 +18,7 @@ mirroring real PACS architecture fundamentals.
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
 | Stage 3 | Network Configuration | ✅ Complete |
 | Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
-| Stage 5 | Orthanc Install and Initial Configuration | 🔲 Not Started |
+| Stage 5 | Orthanc Install and Initial Configuration | ✅ Complete |
 | Stage 6 | Validation | 🔲 Not Started |
 
 ## Build Log
@@ -143,3 +143,50 @@ mirroring real PACS architecture fundamentals.
 - stage4-05-orthanc-db-user-provisioned.png — database, user, privileges created
 - stage4-06-orthanc-db-connection-verified.png — connection test confirmed
 - Committed to infrastructure/screenshots/phase1-stage4/
+
+### 2026-05-21 — Stage 5 complete: Orthanc installed and configured on orthanc-primary
+
+- Orthanc version: 1.12.2+dfsg-1build4 (Ubuntu universe repository)
+- Note: Ubuntu universe package used — upstream repository at
+  package.orthanc-server.com experienced transient DNS resolution
+  failure during initial build. 1.12.2 is fully functional for all
+  lab phases.
+- orthanc-postgresql plugin: 5.0+dfsg-2build3
+- Configuration files modified:
+  - /etc/orthanc/orthanc.json:
+    - Name: ORTHANC-PRIMARY
+    - DicomAet: ORTHANC-PRIMARY
+    - RemoteAccessAllowed: true
+    - AuthenticationEnabled: true
+  - /etc/orthanc/credentials.json:
+    - Admin user configured — password secured
+  - /etc/orthanc/postgresql.json:
+    - EnableIndex: true
+    - EnableStorage: false — DICOM files stored on disk
+    - Database: orthanc
+    - Username: orthanc
+    - Password: secured
+- PostgreSQL index plugin confirmed active on startup:
+  - Trigram index created on first startup
+  - Custom database backend confirmed in logs
+- REST API validation from rhcontrol:
+  - curl -u admin http://192.168.175.128:8042/system
+  - DatabaseBackendPlugin: libOrthancPostgreSQLIndex.so.5.0 confirmed
+  - DicomAet: ORTHANC-PRIMARY confirmed
+  - IsHttpServerSecure: true confirmed
+  - PluginsEnabled: true confirmed
+- Stage 5 status: ✅ Complete
+
+### 2026-05-21 — Documentation: Phase 1 Stage 5 screenshots curated and committed
+
+- 9 screenshots kept — execution order sequence
+- stage5-01-orthanc-apt-install.png — apt install orthanc command
+- stage5-02-orthanc-install-complete.png — installation output complete
+- stage5-03-orthanc-post-install-validation.png — dpkg, service, binary verified
+- stage5-04-orthanc-credentials-config.png — credentials.json configured
+- stage5-05-orthanc-postgresql-config.png — postgresql.json configured
+- stage5-06-orthanc-json-key-settings-grep.png — orthanc.json key settings confirmed
+- stage5-07-orthanc-startup-log.png — clean startup log verified
+- stage5-08-orthanc-service-journal.png — systemctl status confirmed
+- stage5-09-orthanc-rest-api-system-verified.png — REST API /system response confirmed
+- Committed to infrastructure/screenshots/phase1-stage5/
