@@ -19,7 +19,7 @@ mirroring real PACS architecture fundamentals.
 | Stage 3 | Network Configuration | ✅ Complete |
 | Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
 | Stage 5 | Orthanc Install and Initial Configuration | ✅ Complete |
-| Stage 6 | Validation | 🔲 Not Started |
+| Stage 6 | Validation | ✅ Complete |
 
 ## Build Log
 
@@ -190,3 +190,49 @@ mirroring real PACS architecture fundamentals.
 - stage5-08-orthanc-service-journal.png — systemctl status confirmed
 - stage5-09-orthanc-rest-api-system-verified.png — REST API /system response confirmed
 - Committed to infrastructure/screenshots/phase1-stage5/
+
+### 2026-05-21 — Stage 6 complete: Full stack validation on orthanc-primary
+
+- Orthanc Explorer: accessible at http://192.168.175.128:8042
+  - Browser authentication prompt confirmed
+  - Credentials accepted: admin user
+  - Instance name confirmed: ORTHANC-PRIMARY
+  - Page confirmed: "ORTHANC-PRIMARY » Lookup studies"
+- DICOM port validation: nc -zv 192.168.175.128 4242
+  - TCP connection confirmed — port 4242 listening
+- REST API /patients: [] — empty database confirmed
+- REST API /studies: [] — empty database confirmed
+- REST API /statistics:
+  - CountPatients: 0
+  - CountStudies: 0
+  - CountSeries: 0
+  - CountInstances: 0
+  - TotalDiskSize: 0
+  - PostgreSQL backend active — all counts accurate
+- Full stack confirmed operational:
+  - Ubuntu 24.04.4 LTS
+  - PostgreSQL 16.13 index backend
+  - Orthanc 1.12.2 with PostgreSQL plugin
+  - DICOM AE: ORTHANC-PRIMARY port 4242
+  - REST API port 8042 with authentication
+- Stage 6 status: ✅ Complete
+
+### 2026-05-21 — Documentation: Phase 1 Stage 6 screenshots curated and committed
+
+- 3 screenshots kept — execution order sequence
+- stage6-01-orthanc-explorer-browser-auth.png — browser authentication prompt
+- stage6-02-orthanc-explorer-ui-accessible.png — Orthanc Explorer UI loaded
+- stage6-03-dicom-port-4242-reachable.png — nc TCP connection + REST API
+  validation outputs captured
+- Committed to infrastructure/screenshots/phase1-stage6/
+
+### 2026-05-21 — Phase 1 complete
+
+- All 6 stages completed and validated
+- orthanc-primary node fully operational
+- PostgreSQL backend confirmed active
+- DICOM server listening on port 4242 — AE Title ORTHANC-PRIMARY
+- REST API listening on port 8042 — authentication enforced
+- Orthanc Explorer accessible and confirmed
+- Repository documentation current through Phase 1 closure
+- Next: Phase 1 Node 2 — orthanc-secondary build
