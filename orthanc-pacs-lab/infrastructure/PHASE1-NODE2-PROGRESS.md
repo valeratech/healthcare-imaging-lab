@@ -23,7 +23,7 @@ complete the foundational PACS replication and routing architecture.
 | Stage | Description | Status |
 |-------|-------------|--------|
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
-| Stage 2 | Ubuntu 24.04 OS Install | ⬜ Pending |
+| Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
 | Stage 3 | Network Configuration | ⬜ Pending |
 | Stage 4 | PostgreSQL Install and Configuration | ⬜ Pending |
 | Stage 5 | Orthanc Install and Initial Configuration | ⬜ Pending |
