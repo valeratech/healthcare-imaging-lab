@@ -24,7 +24,7 @@ complete the foundational PACS replication and routing architecture.
 |-------|-------------|--------|
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
-| Stage 3 | Network Configuration | ⬜ Pending |
+| Stage 3 | Network Configuration | ✅ Complete |
 | Stage 4 | PostgreSQL Install and Configuration | ⬜ Pending |
 | Stage 5 | Orthanc Install and Initial Configuration | ⬜ Pending |
 | Stage 6 | Validation | ⬜ Pending |
@@ -58,13 +58,11 @@ complete the foundational PACS replication and routing architecture.
 ### 2026-05-29 — Documentation: Node 2 Stage 1 screenshots curated and committed
 
 - 4 screenshots kept — execution order sequence
-- phase2-stage1-01-vm-install-os-later.png — OS install later selected
-- phase2-stage1-02-vm-name-and-location.png — VM name orthanc-secondary confirmed
-- phase2-stage1-03-vm-creation-summary.png — creation summary reviewed
-- phase2-stage1-04-vm-hardware-settings.png — hardware spec and dual NIC confirmed
+- stage1-01-vm-install-os-later.png — OS install later selected
+- stage1-02-vm-name-and-location.png — VM name orthanc-secondary confirmed
+- stage1-03-vm-creation-summary.png — creation summary reviewed
+- stage1-04-vm-hardware-settings.png — hardware spec and dual NIC confirmed
 - Committed to infrastructure/screenshots/phase2-stage1/
-
----
 
 ### 2026-05-29 — Stage 2 complete: Ubuntu 24.04.4 LTS installed on orthanc-secondary
 
@@ -99,28 +97,25 @@ complete the foundational PACS replication and routing architecture.
 ### 2026-05-29 — Documentation: Node 2 Stage 2 screenshots curated and committed
 
 - 8 screenshots kept — execution order sequence
-- phase2-stage2-01-installer-no-update.png — installer update skipped
-- phase2-stage2-02-minimized-install-selected.png — Ubuntu Server minimized confirmed
-- phase2-stage2-03-storage-no-lvm.png — simple partition layout, no LVM
-- phase2-stage2-04-profile-configuration.png — hostname and username configured
-- phase2-stage2-05-ssh-openssh-enabled.png — OpenSSH server enabled
-- phase2-stage2-06-snaps-none-selected.png — no snaps installed
-- phase2-stage2-07-installation-complete.png — installation complete
-- phase2-stage2-08-post-install-validation.png — hostnamectl and ip link show confirmed
+- stage2-01-installer-no-update.png — installer update skipped
+- stage2-02-minimized-install-selected.png — Ubuntu Server minimized confirmed
+- stage2-03-storage-no-lvm.png — simple partition layout, no LVM
+- stage2-04-profile-configuration.png — hostname and username configured
+- stage2-05-ssh-openssh-enabled.png — OpenSSH server enabled
+- stage2-06-snaps-none-selected.png — no snaps installed
+- stage2-07-installation-complete.png — installation complete
+- stage2-08-post-install-validation.png — hostnamectl and ip link show confirmed
 - Committed to infrastructure/screenshots/phase2-stage2/
 
----
+### 2026-05-29 — Management node SSH access established to orthanc-secondary
 
-### YYYY-MM-DD — Management node SSH access established to orthanc-secondary
-
-- SSH from rhcontrol to orthanc-secondary: <!-- 192.168.175.xxx --> confirmed
+- SSH from rhcontrol (192.168.175.140) to orthanc-secondary: confirmed
+- orthanc-secondary management IP: 192.168.175.130 (DHCP via VMnet8)
 - SSH fingerprint accepted and persisted to known_hosts
 - OS release confirmed via SSH: Ubuntu 24.04.4 LTS (Noble Numbat)
 - All subsequent Node 2 administration performed from rhcontrol via SSH
 
----
-
-### YYYY-MM-DD — Stage 3 complete: Network configuration applied on orthanc-secondary
+### 2026-05-29 — Stage 3 complete: Network configuration applied on orthanc-secondary
 
 - Existing Netplan file: /etc/netplan/50-cloud-init.yaml — ens33 DHCP only
 - 50-cloud-init.yaml not modified — managed by cloud-init, overwrite risk
@@ -132,16 +127,19 @@ complete the foundational PACS replication and routing architecture.
   - ens34: UP
   - inet 192.168.100.20/24 — confirmed
   - valid_lft forever — static assignment confirmed
-- PACS segment connectivity: ping 192.168.100.10 from orthanc-secondary — confirmed
+- PACS segment connectivity: ping -c 3 192.168.100.10 — 0% packet loss confirmed
 - Stage 3 status: ✅ Complete
 
-### YYYY-MM-DD — Documentation: Node 2 Stage 3 screenshots curated and committed
+### 2026-05-29 — Documentation: Node 2 Stage 3 screenshots curated and committed
 
-- <!-- N --> screenshots kept — execution order sequence
-- <!-- stage3-01-description.png -->
+- 6 screenshots kept — execution order sequence
+- phase2-stage3-01-console-login-confirmed.png — SSH from rhcontrol established
+- phase2-stage3-02-os-release-verified.png — Ubuntu 24.04.4 LTS confirmed
+- phase2-stage3-03-netplan-cloud-init-existing.png — existing Netplan inspected
+- phase2-stage3-04-netplan-pacs-static-config.png — 99-pacs-static.yaml created
+- phase2-stage3-05-pacs-static-file-permissions.png — 600 permissions confirmed
+- phase2-stage3-06-ens34-applied-pacs-ping-verified.png — 192.168.100.20/24 UP, ping to Node 1 confirmed
 - Committed to infrastructure/screenshots/phase2-stage3/
-
----
 
 ### YYYY-MM-DD — Stage 4 complete: PostgreSQL installed and configured on orthanc-secondary
 
@@ -164,8 +162,6 @@ complete the foundational PACS replication and routing architecture.
 - <!-- N --> screenshots kept — execution order sequence
 - <!-- stage4-01-description.png -->
 - Committed to infrastructure/screenshots/phase2-stage4/
-
----
 
 ### YYYY-MM-DD — Stage 5 complete: Orthanc installed and configured on orthanc-secondary
 
@@ -202,8 +198,6 @@ complete the foundational PACS replication and routing architecture.
 - <!-- stage5-01-description.png -->
 - Committed to infrastructure/screenshots/phase2-stage5/
 
----
-
 ### YYYY-MM-DD — Stage 6 complete: Full stack validation on orthanc-secondary
 
 - Orthanc Explorer: accessible at http://<!-- 192.168.175.xxx -->:8042
@@ -236,8 +230,6 @@ complete the foundational PACS replication and routing architecture.
 - <!-- stage6-01-description.png -->
 - Committed to infrastructure/screenshots/phase2-stage6/
 
----
-
 ### YYYY-MM-DD — Stage 7 complete: Peer configuration — ORTHANC-PRIMARY ↔ ORTHANC-SECONDARY
 
 - Peer registration on orthanc-primary (/etc/orthanc/orthanc.json):
@@ -266,8 +258,6 @@ complete the foundational PACS replication and routing architecture.
 - <!-- N --> screenshots kept — execution order sequence
 - <!-- stage7-01-description.png -->
 - Committed to infrastructure/screenshots/phase2-stage7/
-
----
 
 ### YYYY-MM-DD — Node 2 build complete
 
