@@ -45,6 +45,15 @@ mirroring real PACS architecture fundamentals.
 - Connect at power on: confirmed
 - Stage 1 status: ✅ Complete
 
+### 2026-05-16 — Documentation: Phase 1 Stage 1 screenshots curated and committed
+
+- 4 screenshots kept — execution order sequence
+- phase1-stage1-01-guest-os-ubuntu64.png — guest OS type confirmed
+- phase1-stage1-02-install-os-later.png — OS install later selected
+- phase1-stage1-03-vm-name-location.png — VM name orthanc-primary confirmed
+- phase1-stage1-04-cpu-configuration.png — CPU and RAM spec confirmed
+- Committed to infrastructure/screenshots/phase1-stage1/
+
 ### 2026-05-16 — Stage 2 complete: Ubuntu 24.04.4 LTS installed on orthanc-primary
 
 - OS: Ubuntu 24.04.4 LTS — minimized server install
@@ -73,12 +82,18 @@ mirroring real PACS architecture fundamentals.
     - ens34: DOWN — VMnet2 PACS segment (no IP assigned — pending Stage 3)
 - Stage 2 status: ✅ Complete
 
-### 2026-05-16 — Documentation: Phase 1 Stage 1-2 screenshots curated and committed
+### 2026-05-16 — Documentation: Phase 1 Stage 2 screenshots curated and committed
 
-- Stage 1 screenshots: 4 kept, committed to infrastructure/screenshots/phase1-stage1/
-- Stage 2 screenshots: 8 kept, committed to infrastructure/screenshots/phase1-stage2/
-- Routine installer steps excluded — only configuration decisions and
-  validation outputs retained
+- 8 screenshots kept — execution order sequence
+- phase1-stage2-01-installer-no-update.png — installer update skipped
+- phase1-stage2-02-minimized-install-selected.png — Ubuntu Server minimized confirmed
+- phase1-stage2-03-storage-no-lvm.png — simple partition layout, no LVM
+- phase1-stage2-04-profile-configuration.png — hostname and username configured
+- phase1-stage2-05-ssh-openssh-enabled.png — OpenSSH server enabled
+- phase1-stage2-06-snaps-none-selected.png — no snaps installed
+- phase1-stage2-07-installation-complete.png — installation complete
+- phase1-stage2-08-post-install-validation.png — hostnamectl and ip link show confirmed
+- Committed to infrastructure/screenshots/phase1-stage2/
 
 ### 2026-05-17 — Management node established for lab administration
 
@@ -110,11 +125,11 @@ mirroring real PACS architecture fundamentals.
 ### 2026-05-17 — Documentation: Phase 1 Stage 3 screenshots curated and committed
 
 - 5 screenshots kept — execution order sequence
-- stage3-01-pre-state-configuration-ens34.png — baseline ens34 DOWN state
-- stage3-02-ssh-access-os-verified.png — SSH established, OS confirmed
-- stage3-03-netplan-cloud-init-existing.png — existing Netplan inspected
-- stage3-04-netplan-pacs-static-config.png — 99-pacs-static.yaml created
-- stage3-05-ens34-static-ip-verified.png — 192.168.100.10/24 UP confirmed
+- phase1-stage3-01-pre-state-configuration-ens34.png — baseline ens34 DOWN state
+- phase1-stage3-02-ssh-access-os-verified.png — SSH established, OS confirmed
+- phase1-stage3-03-netplan-cloud-init-existing.png — existing Netplan inspected
+- phase1-stage3-04-netplan-pacs-static-config.png — 99-pacs-static.yaml created
+- phase1-stage3-05-ens34-static-ip-verified.png — 192.168.100.10/24 UP confirmed
 - Committed to infrastructure/screenshots/phase1-stage3/
 
 ### 2026-05-17 — Stage 4 complete: PostgreSQL installed and configured on orthanc-primary
@@ -136,12 +151,12 @@ mirroring real PACS architecture fundamentals.
 ### 2026-05-17 — Documentation: Phase 1 Stage 4 screenshots curated and committed
 
 - 6 screenshots kept — execution order sequence
-- stage4-01-postgresql-apt-install.png — apt install postgresql command
-- stage4-02-postgresql-install-complete.png — installation output complete
-- stage4-03-postgresql-service-status.png — systemctl status postgresql
-- stage4-04-postgresql-cluster-version.png — cluster status and version confirmed
-- stage4-05-orthanc-db-user-provisioned.png — database, user, privileges created
-- stage4-06-orthanc-db-connection-verified.png — connection test confirmed
+- phase1-stage4-01-postgresql-apt-install.png — apt install postgresql command
+- phase1-stage4-02-postgresql-install-complete.png — installation output complete
+- phase1-stage4-03-postgresql-service-status.png — systemctl status postgresql
+- phase1-stage4-04-postgresql-cluster-version.png — cluster status and version confirmed
+- phase1-stage4-05-orthanc-db-user-provisioned.png — database, user, privileges created
+- phase1-stage4-06-orthanc-db-connection-verified.png — connection test confirmed
 - Committed to infrastructure/screenshots/phase1-stage4/
 
 ### 2026-05-21 — Stage 5 complete: Orthanc installed and configured on orthanc-primary
@@ -180,15 +195,15 @@ mirroring real PACS architecture fundamentals.
 ### 2026-05-21 — Documentation: Phase 1 Stage 5 screenshots curated and committed
 
 - 9 screenshots kept — execution order sequence
-- stage5-01-orthanc-apt-install.png — apt install orthanc command
-- stage5-02-orthanc-install-complete.png — installation output complete
-- stage5-03-orthanc-post-install-validation.png — dpkg, service, binary verified
-- stage5-04-orthanc-credentials-config.png — credentials.json configured
-- stage5-05-orthanc-postgresql-config.png — postgresql.json configured
-- stage5-06-orthanc-json-key-settings-grep.png — orthanc.json key settings confirmed
-- stage5-07-orthanc-startup-log.png — clean startup log verified
-- stage5-08-orthanc-service-journal.png — systemctl status confirmed
-- stage5-09-orthanc-rest-api-system-verified.png — REST API /system response confirmed
+- phase1-stage5-01-orthanc-apt-install.png — apt install orthanc command
+- phase1-stage5-02-orthanc-install-complete.png — installation output complete
+- phase1-stage5-03-orthanc-post-install-validation.png — dpkg, service, binary verified
+- phase1-stage5-04-orthanc-credentials-config.png — credentials.json configured
+- phase1-stage5-05-orthanc-postgresql-config.png — postgresql.json configured
+- phase1-stage5-06-orthanc-json-key-settings-grep.png — orthanc.json key settings confirmed
+- phase1-stage5-07-orthanc-startup-log.png — clean startup log verified
+- phase1-stage5-08-orthanc-service-journal.png — systemctl status confirmed
+- phase1-stage5-09-orthanc-rest-api-system-verified.png — REST API /system response confirmed
 - Committed to infrastructure/screenshots/phase1-stage5/
 
 ### 2026-05-21 — Stage 6 complete: Full stack validation on orthanc-primary
@@ -220,9 +235,9 @@ mirroring real PACS architecture fundamentals.
 ### 2026-05-21 — Documentation: Phase 1 Stage 6 screenshots curated and committed
 
 - 3 screenshots kept — execution order sequence
-- stage6-01-orthanc-explorer-browser-auth.png — browser authentication prompt
-- stage6-02-orthanc-explorer-ui-accessible.png — Orthanc Explorer UI loaded
-- stage6-03-dicom-port-4242-reachable.png — nc TCP connection + REST API
+- phase1-stage6-01-orthanc-explorer-browser-auth.png — browser authentication prompt
+- phase1-stage6-02-orthanc-explorer-ui-accessible.png — Orthanc Explorer UI loaded
+- phase1-stage6-03-dicom-port-4242-reachable.png — nc TCP connection + REST API
   validation outputs captured
 - Committed to infrastructure/screenshots/phase1-stage6/
 
