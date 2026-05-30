@@ -25,7 +25,7 @@ complete the foundational PACS replication and routing architecture.
 | Stage 1 | VM Creation — VMware Workstation | ✅ Complete |
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
 | Stage 3 | Network Configuration | ✅ Complete |
-| Stage 4 | PostgreSQL Install and Configuration | ⬜ Pending |
+| Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
 | Stage 5 | Orthanc Install and Initial Configuration | ⬜ Pending |
 | Stage 6 | Validation | ⬜ Pending |
 | Stage 7 | Peer Configuration — Node 1 ↔ Node 2 | ⬜ Pending |
@@ -141,15 +141,19 @@ complete the foundational PACS replication and routing architecture.
 - phase2-stage3-06-ens34-applied-pacs-ping-verified.png — 192.168.100.20/24 UP, ping to Node 1 confirmed
 - Committed to infrastructure/screenshots/phase2-stage3/
 
-### YYYY-MM-DD — Stage 4 complete: PostgreSQL installed and configured on orthanc-secondary
+### 2026-05-30 — Stage 4 complete: PostgreSQL installed and configured on orthanc-secondary
 
-- PostgreSQL version: <!-- 16.x -->
+- PostgreSQL version: 16.14 (Ubuntu 16.14-0ubuntu0.24.04.1)
+  - Note: Minor version difference from orthanc-primary (16.13) — reflects
+    package update available at time of Node 2 install. No operational impact.
 - Cluster: postgresql@16-main — active (running), enabled at boot
 - Database created: orthanc
 - Owner: orthanc
 - Encoding: UTF8
 - Dedicated user created: orthanc
 - Privileges: CTc on orthanc database
+- Note: Placeholder password used for documentation and screenshots —
+  secure password in actual use. Consistent with Node 1 convention.
 - Connection test: psql -U orthanc -h localhost -d orthanc
   - current_database: orthanc — confirmed
   - current_user: orthanc — confirmed
@@ -157,10 +161,16 @@ complete the foundational PACS replication and routing architecture.
 - Connection string validated — ready for Orthanc plugin configuration
 - Stage 4 status: ✅ Complete
 
-### YYYY-MM-DD — Documentation: Node 2 Stage 4 screenshots curated and committed
+### 2026-05-30 — Documentation: Node 2 Stage 4 screenshots curated and committed
 
-- <!-- N --> screenshots kept — execution order sequence
-- <!-- stage4-01-description.png -->
+- 7 screenshots kept — execution order sequence
+- phase2-stage4-01-apt-update.png — package index refreshed
+- phase2-stage4-02-postgresql-apt-install.png — apt install postgresql command
+- phase2-stage4-03-postgresql-install-complete.png — installation output complete
+- phase2-stage4-04-postgresql-service-status.png — systemctl status postgresql confirmed
+- phase2-stage4-05-postgresql-cluster-running.png — postgresql@16-main active (running) confirmed
+- phase2-stage4-06-orthanc-db-user-provisioned.png — database, user, privileges created
+- phase2-stage4-07-orthanc-db-connection-verified.png — connection test confirmed
 - Committed to infrastructure/screenshots/phase2-stage4/
 
 ### YYYY-MM-DD — Stage 5 complete: Orthanc installed and configured on orthanc-secondary
