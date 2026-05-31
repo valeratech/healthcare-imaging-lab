@@ -26,7 +26,7 @@ complete the foundational PACS replication and routing architecture.
 | Stage 2 | Ubuntu 24.04 OS Install | ✅ Complete |
 | Stage 3 | Network Configuration | ✅ Complete |
 | Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
-| Stage 5 | Orthanc Install and Initial Configuration | ⬜ Pending |
+| Stage 5 | Orthanc Install and Initial Configuration | ✅ Complete |
 | Stage 6 | Validation | ⬜ Pending |
 | Stage 7 | Peer Configuration — Node 1 ↔ Node 2 | ⬜ Pending |
 
@@ -173,14 +173,19 @@ complete the foundational PACS replication and routing architecture.
 - phase2-stage4-07-orthanc-db-connection-verified.png — connection test confirmed
 - Committed to infrastructure/screenshots/phase2-stage4/
 
-### YYYY-MM-DD — Stage 5 complete: Orthanc installed and configured on orthanc-secondary
+### 2026-05-30 — Stage 5 complete: Orthanc installed and configured on orthanc-secondary
 
-- Orthanc version: <!-- 1.12.2+dfsg-1build4 --> (Ubuntu universe repository)
-- orthanc-postgresql plugin: <!-- 5.0+dfsg-2build3 -->
+- Orthanc version: 1.12.2+dfsg-1build4 (Ubuntu universe repository)
+- orthanc-postgresql plugin: 5.0+dfsg-2build3
 - Configuration files modified:
   - /etc/orthanc/orthanc.json:
     - Name: ORTHANC-SECONDARY
-    - DicomAet: ORTHANC-SECONDARY
+    - DicomAet: ORTHANC-SCNDRY
+      - Note: DICOM AET is limited to 16 characters per the DICOM standard
+        (PS3.5 Section 9.1). "ORTHANC-SECONDARY" is 17 characters and
+        exceeds this limit. AET set to ORTHANC-SCNDRY (14 characters).
+        Name field retains full ORTHANC-SECONDARY value — no character
+        limit applies to the display name.
     - RemoteAccessAllowed: true
     - AuthenticationEnabled: true
   - /etc/orthanc/credentials.json:
@@ -192,20 +197,31 @@ complete the foundational PACS replication and routing architecture.
     - Username: orthanc
     - Password: secured
 - PostgreSQL index plugin confirmed active on startup:
-  - Trigram index created on first startup
   - Custom database backend confirmed in logs
+  - Trigram index created on earlier startup attempt — not repeated on
+    subsequent restarts, expected behavior
 - REST API validation from rhcontrol:
-  - curl -u admin http://<!-- 192.168.175.xxx -->:8042/system
-  - DatabaseBackendPlugin: libOrthancPostgreSQLIndex.so.<!-- x.x --> confirmed
-  - DicomAet: ORTHANC-SECONDARY confirmed
+  - curl -u admin http://192.168.175.130:8042/system
+  - DatabaseBackendPlugin: libOrthancPostgreSQLIndex.so.5.0 confirmed
+  - DicomAet: ORTHANC-SCNDRY confirmed
+  - Name: ORTHANC-SECONDARY confirmed
   - IsHttpServerSecure: true confirmed
   - PluginsEnabled: true confirmed
 - Stage 5 status: ✅ Complete
 
-### YYYY-MM-DD — Documentation: Node 2 Stage 5 screenshots curated and committed
+### 2026-05-30 — Documentation: Node 2 Stage 5 screenshots curated and committed
 
-- <!-- N --> screenshots kept — execution order sequence
-- <!-- stage5-01-description.png -->
+- 10 screenshots kept — execution order sequence
+- phase2-stage5-01-orthanc-apt-install.png — apt install orthanc command
+- phase2-stage5-02-orthanc-install-complete.png — installation output complete
+- phase2-stage5-03-orthanc-dpkg-verified.png — dpkg package installation confirmed
+- phase2-stage5-04-orthanc-plugins-listed.png — plugin directory contents confirmed
+- phase2-stage5-05-orthanc-credentials-config.png — credentials.json configured
+- phase2-stage5-06-orthanc-postgresql-index-enabled.png — postgresql.json configured
+- phase2-stage5-07-orthanc-config-aet-auth-settings.png — orthanc.json key settings confirmed
+- phase2-stage5-08-orthanc-service-restarted.png — systemctl status confirmed
+- phase2-stage5-09-orthanc-startup-log.png — clean startup log verified
+- phase2-stage5-10-orthanc-rest-api-verified.png — REST API /system response confirmed
 - Committed to infrastructure/screenshots/phase2-stage5/
 
 ### YYYY-MM-DD — Stage 6 complete: Full stack validation on orthanc-secondary
