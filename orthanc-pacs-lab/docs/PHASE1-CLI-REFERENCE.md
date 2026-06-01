@@ -25,8 +25,8 @@ from rhcontrol.
 
 **`ip addr show ens34`**
 Same as above but targeted at the PACS segment interface. Executed
-post-Netplan apply to confirm the static IP `192.168.100.10/24` was
-correctly assigned and the interface was UP.
+post-Netplan apply to confirm the static IP was correctly assigned and
+the interface was UP.
 
 **`ip a`**
 Shorthand for `ip addr show` — displays all interfaces and their full
@@ -136,10 +136,15 @@ line numbers and values. Executed to verify the four targeted
 configuration changes were correctly applied without having to read the
 entire 700-line file.
 
+**`sudo grep -n "\"Name\"" /etc/orthanc/orthanc.json`**
+Searches orthanc.json for the Name field specifically using exact string
+matching with escaped quotes. Executed to isolate the display name value
+from other lines containing the word "Name" in comments or other keys.
+
 **`sudo nano /etc/orthanc/orthanc.json`**
 Opens the Orthanc main configuration file in the nano text editor with
-elevated privileges. Executed to make the four targeted configuration
-changes — Name, DicomAet, RemoteAccessAllowed, AuthenticationEnabled.
+elevated privileges. Executed to make targeted configuration changes —
+Name, DicomAet, RemoteAccessAllowed, AuthenticationEnabled, OrthancPeers.
 
 **`sudo nano /etc/orthanc/credentials.json`**
 Opens the credentials file in nano. Executed to configure the admin
@@ -168,8 +173,8 @@ than journalctl for Orthanc-specific events.
 
 **`cat /etc/os-release`**
 Displays the operating system identification file. Executed from the SSH
-session to confirm the OS version on orthanc-primary from the rhcontrol
-management node.
+session to confirm the OS version on a node from the rhcontrol management
+node.
 
 ## Service Management
 
@@ -206,6 +211,15 @@ the Orthanc log file which contains application-level detail.
 Applies all Netplan network configuration files without requiring a
 reboot. Executed after creating `99-pacs-static.yaml` to bring ens34
 up with the static IP assignment immediately.
+
+**`sudo /usr/sbin/Orthanc --verbose /etc/orthanc 2>&1`**
+Runs Orthanc directly in the foreground with verbose output redirected
+to the terminal. Executed to capture the full startup exception when
+systemd log output was insufficient to identify the root cause of a
+service crash. Bypasses systemd and prints all output including uncaught
+exceptions directly to the console. Useful for diagnosing startup
+failures that do not produce meaningful output in journalctl or the
+Orthanc log file.
 
 ## PostgreSQL Administration
 
@@ -254,13 +268,21 @@ accepting connections immediately after installation.
 
 **`ping -c 3 8.8.8.8`**
 Sends 3 ICMP echo requests to Google's public DNS server. Executed to
-verify basic IP connectivity from orthanc-primary — confirms the NAT
-network path to the internet is functional independent of DNS.
+verify basic IP connectivity from a node — confirms the NAT network path
+to the internet is functional independent of DNS.
 
 **`ping -c 3 google.com`**
 Sends 3 ICMP echo requests to google.com requiring DNS resolution first.
 Executed to verify both DNS resolution and IP connectivity simultaneously
 — confirmed both were working after the Orthanc repository DNS failure.
+
+**`ping -c 3 192.168.100.10`**
+Sends 3 ICMP echo requests to orthanc-primary's PACS segment IP from
+orthanc-secondary. Executed after Stage 3 network configuration to
+confirm bidirectional connectivity across the isolated VMnet2 PACS
+segment before any DICOM services were configured. A successful ping
+here confirms the network layer is functional and isolates any subsequent
+DICOM connectivity failures to the application layer.
 
 **`nc -zv 192.168.175.128 4242`**
 Uses netcat to test TCP connectivity to a specific host and port without
@@ -274,8 +296,55 @@ ASCII armor format to binary keyring format. Executed as part of the
 upstream Orthanc repository setup attempt — failed due to DNS resolution
 failure for `package.orthanc-server.com`.
 
-**`curl -u admin:password http://192.168.175.128:8042/system`**
+**`curl -u admin:password http://<host>:8042/system`**
 Issues an authenticated HTTP GET request to the Orthanc REST API system
 endpoint. Executed from rhcontrol to validate the full stack — confirms
 REST API is reachable, authentication is enforced and working, and
-returns the system c
+returns the system configuration including DicomAet, DatabaseBackendPlugin,
+IsHttpServerSecure, and PluginsEnabled.
+
+**`curl -u admin:password http://<host>:8042/patients`**
+Issues an authenticated HTTP GET request to the patients endpoint.
+Returns a JSON array of all patient identifiers in the database. Executed
+during Stage 6 validation to confirm the database was empty and the REST
+API was responding correctly on Node 2.
+
+**`curl -u admin:password http://<host>:8042/studies`**
+Issues an authenticated HTTP GET request to the studies endpoint. Returns
+a JSON array of all study identifiers. Executed during Stage 6 validation
+alongside /patients and /statistics to confirm empty database state.
+
+**`curl -u admin:password http://<host>:8042/statistics`**
+Issues an authenticated HTTP GET request to the statistics endpoint.
+Returns CountPatients, CountStudies, CountSeries, CountInstances, and
+TotalDiskSize. Executed during Stage 6 validation to confirm the
+PostgreSQL backend was active and all counts were accurate.
+
+## Peer Configuration and Validation
+
+**`curl -u admin:password http://<host>:8042/peers`**
+Returns a JSON array listing all registered Orthanc peers on the target
+node. Executed from rhcontrol after Stage 7 peer configuration to confirm
+the peer entry was correctly registered on each node before testing
+connectivity.
+
+**`curl -u admin:password http://192.168.175.128:8042/peers/ORTHANC-SCNDRY/system`**
+Issues an authenticated HTTP GET request from rhcontrol to orthanc-primary's
+REST API, which in turn proxies a system query to the registered peer
+ORTHANC-SCNDRY over the VMnet2 PACS segment. A successful response
+returns the full /system output of orthanc-secondary — confirming
+end-to-end peer connectivity over the isolated imaging network. Executed
+to validate the ORTHANC-PRIMARY → ORTHANC-SCNDRY peer relationship.
+
+**`curl -u admin:password http://192.168.175.130:8042/peers/ORTHANC-PRIMARY/system`**
+Same as above but executed against orthanc-secondary, proxying a system
+query to ORTHANC-PRIMARY. Executed to validate the reverse peer
+relationship — ORTHANC-SCNDRY → ORTHANC-PRIMARY — confirming
+bidirectional peer connectivity over the VMnet2 PACS segment.
+
+**`curl -u admin:password http://192.168.100.20:8042/system`**
+Issues an authenticated HTTP GET request directly to orthanc-secondary's
+PACS segment IP from orthanc-primary. Executed to isolate a peer
+connectivity failure — confirmed the VMnet2 network path was functional
+and the issue was application-layer authentication, not network
+connectivity.
