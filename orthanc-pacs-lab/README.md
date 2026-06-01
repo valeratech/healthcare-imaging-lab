@@ -34,9 +34,9 @@ diagram documented in** [`infrastructure/`](./infrastructure/)
 
 | Component | Detail |
 |-----------|--------|
-| Hypervisor | VMware Workstation |
-| Operating System | Ubuntu 24.04 LTS |
-| Orthanc Version | Current stable release |
+| Hypervisor | VMware Workstation Pro 26H1 |
+| Operating System | Ubuntu 24.04.4 LTS |
+| Orthanc Version | 1.12.2 |
 | Database Backend | PostgreSQL |
 | PACS Segment | 192.168.100.0/24 — VMnet2, isolated, no DHCP |
 | Internet Access | VMnet8 NAT — package management only |
@@ -50,7 +50,7 @@ diagram documented in** [`infrastructure/`](./infrastructure/)
 
 | Phase | Focus | Directory | Status |
 |-------|-------|-----------|--------|
-| Phase 1 | Core DICOM Infrastructure | [infrastructure/](./infrastructure/) | 🔲 In Progress |
+| Phase 1 | Core DICOM Infrastructure | [infrastructure/](./infrastructure/) | ✅ Complete |
 | Phase 2 | Protocol Analysis and Troubleshooting | [protocol-analysis/](./protocol-analysis/) | 🔲 Planned |
 | Phase 3 | REST API Automation | [automation/](./automation/) | 🔲 Planned |
 | Phase 4 | Security Layer | [security/](./security/) | 🔲 Planned |
@@ -72,6 +72,7 @@ knowledge domains across all phases.
 | Security and Compliance | Phase 4 — full security layer |
 
 ## Repository Structure
+
 ```
 orthanc-pacs-lab/
 ├── README.md                  ← This file
