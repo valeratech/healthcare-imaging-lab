@@ -19,7 +19,7 @@ production PACS reality.
 | Node | Hostname | Status |
 |------|----------|--------|
 | Node 1 | orthanc-primary | ✅ Complete |
-| Node 2 | orthanc-secondary | 🔲 In Progress |
+| Node 2 | orthanc-secondary | ✅ Complete |
 
 ### Node 1 — orthanc-primary
 
@@ -42,11 +42,27 @@ production PACS reality.
 | Component | Detail |
 |-----------|--------|
 | OS | Ubuntu 24.04.4 LTS minimized server |
-| AE Title | ORTHANC-SECONDARY (planned) |
-| DICOM port | 4242 (planned) |
-| REST API port | 8042 (planned) |
-| PACS segment IP | 192.168.100.20/24 (planned) |
-| Service status | Not yet deployed |
+| Orthanc version | 1.12.2 |
+| PostgreSQL version | 16.14 |
+| AE Title | ORTHANC-SCNDRY (display name: ORTHANC-SECONDARY) |
+| DICOM port | 4242 |
+| REST API port | 8042 |
+| PACS segment IP | 192.168.100.20/24 (static) |
+| Authentication | HTTP Basic — enforced |
+| Database backend | PostgreSQL index — files on disk |
+| Service status | Active, enabled at boot |
+| Orthanc Explorer | Confirmed accessible |
+
+### Peer Configuration
+
+| Peer | Registered On | URL | Status |
+|------|--------------|-----|--------|
+| ORTHANC-SCNDRY | orthanc-primary | http://192.168.100.20:8042 | ✅ Confirmed reachable |
+| ORTHANC-PRIMARY | orthanc-secondary | http://192.168.100.10:8042 | ✅ Confirmed reachable |
+
+Peer traffic traverses the VMnet2 PACS segment exclusively — isolated
+from management network traffic. Mirrors production PACS VLAN architecture
+where inter-system replication uses a dedicated imaging network.
 
 ## Network Architecture
 
@@ -79,14 +95,21 @@ administrative access policy.
 infrastructure/
 ├── README.md                        ← This file
 ├── PHASE1-PROGRESS.md               ← Node 1 build log — complete
-├── PHASE1-NODE2-PROGRESS.md         ← Node 2 build log — in progress
+├── PHASE1-NODE2-PROGRESS.md         ← Node 2 build log — complete
 └── screenshots/
-├── phase1-stage1/               ← VM creation — 4 screenshots
-├── phase1-stage2/               ← OS install — 8 screenshots
-├── phase1-stage3/               ← Network configuration — 5 screenshots
-├── phase1-stage4/               ← PostgreSQL — 6 screenshots
-├── phase1-stage5/               ← Orthanc install — 9 screenshots
-└── phase1-stage6/               ← Validation — 3 screenshots
+    ├── phase1-stage1/               ← VM creation — 4 screenshots
+    ├── phase1-stage2/               ← OS install — 8 screenshots
+    ├── phase1-stage3/               ← Network configuration — 5 screenshots
+    ├── phase1-stage4/               ← PostgreSQL — 6 screenshots
+    ├── phase1-stage5/               ← Orthanc install — 9 screenshots
+    ├── phase1-stage6/               ← Validation — 3 screenshots
+    ├── phase2-stage1/               ← VM creation — 4 screenshots
+    ├── phase2-stage2/               ← OS install — 8 screenshots
+    ├── phase2-stage3/               ← Network configuration — 7 screenshots
+    ├── phase2-stage4/               ← PostgreSQL — 7 screenshots
+    ├── phase2-stage5/               ← Orthanc install — 10 screenshots
+    ├── phase2-stage6/               ← Validation — 4 screenshots
+    └── phase2-stage7/               ← Peer configuration — 6 screenshots
 ```
 
 ## Key Documentation
@@ -94,7 +117,7 @@ infrastructure/
 | File | Purpose |
 |------|---------|
 | PHASE1-PROGRESS.md | Complete Node 1 build log with all stage decisions |
-| PHASE1-NODE2-PROGRESS.md | Node 2 build log — created at Node 2 build start |
+| PHASE1-NODE2-PROGRESS.md | Complete Node 2 build log with all stage decisions |
 
 Supporting documentation for this infrastructure is maintained in
 the [`docs/`](../docs/) directory:
