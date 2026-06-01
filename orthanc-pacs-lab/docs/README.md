@@ -13,4 +13,5 @@ Reference documentation for the Orthanc PACS lab environment.
 
 ## Status
 
-Phase 1 complete. Node 2 build and peer configuration in progress.
+Phase 1 complete. Node 1 and Node 2 builds complete. Peer configuration
+between ORTHANC-PRIMARY and ORTHANC-SCNDRY confirmed operational.
