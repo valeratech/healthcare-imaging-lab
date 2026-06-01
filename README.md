@@ -25,7 +25,7 @@ evaluated on its own merits.
 | Hypervisor | VMware Workstation Pro 26H1 |
 | Operating System | Ubuntu 24.04.4 LTS |
 | Primary Platform | Orthanc DICOM Server 1.12.2 |
-| Database Backend | PostgreSQL 16.13 |
+| Database Backend | PostgreSQL |
 | Network Simulation | Dedicated isolated PACS segment + NAT management segment |
 | Management Node | RHEL 10 control node — SSH administration |
 | Datasets | TCIA public anonymized datasets — no real patient data |
@@ -45,7 +45,7 @@ monitoring.
 | Phase | Focus | Status |
 |-------|-------|--------|
 | Phase 1 | Core DICOM Infrastructure — Node 1 | ✅ Complete |
-| Phase 1 | Core DICOM Infrastructure — Node 2 | 🔲 In Progress |
+| Phase 1 | Core DICOM Infrastructure — Node 2 + Peer Configuration | ✅ Complete |
 | Phase 2 | Protocol Analysis and Troubleshooting | 🔲 Planned |
 | Phase 3 | REST API Automation | 🔲 Planned |
 | Phase 4 | Security Layer | 🔲 Planned |
@@ -54,22 +54,24 @@ monitoring.
 
 ## Phase 1 — What Was Built
 
-A production-realistic single-node Orthanc DICOM server environment
+A production-realistic two-node Orthanc DICOM server environment
 running on Ubuntu 24.04.4 LTS with PostgreSQL as the index backend.
-The node is fully operational with authenticated REST API access,
-DICOM AE Title configured, and network segmentation simulating a
-clinical PACS environment.
+Both nodes are fully operational with authenticated REST API access,
+DICOM AE Titles configured, network segmentation simulating a clinical
+PACS environment, and bidirectional peer connectivity established over
+the isolated PACS segment.
 
-| Component | Detail |
-|-----------|--------|
-| Node 1 hostname | orthanc-primary |
-| AE Title | ORTHANC-PRIMARY |
-| DICOM port | 4242 |
-| REST API port | 8042 |
-| Database backend | PostgreSQL 16.13 — index only, files on disk |
-| PACS segment IP | 192.168.100.10/24 |
-| Authentication | HTTP Basic — enforced |
-| Orthanc Explorer | Accessible and confirmed |
+| Component | orthanc-primary | orthanc-secondary |
+|-----------|----------------|-------------------|
+| Hostname | orthanc-primary | orthanc-secondary |
+| AE Title | ORTHANC-PRIMARY | ORTHANC-SCNDRY |
+| DICOM port | 4242 | 4242 |
+| REST API port | 8042 | 8042 |
+| Database backend | PostgreSQL 16.13 — index only, files on disk | PostgreSQL 16.14 — index only, files on disk |
+| PACS segment IP | 192.168.100.10/24 | 192.168.100.20/24 |
+| Authentication | HTTP Basic — enforced | HTTP Basic — enforced |
+| Orthanc Explorer | Accessible and confirmed | Accessible and confirmed |
+| Peer registered | ORTHANC-SCNDRY | ORTHANC-PRIMARY |
 
 ## Standards and Frameworks
 
@@ -88,4 +90,4 @@ anonymized data.
 
 ## Contact
 
-www.linkedin.com/in/ryan-valera-897796210
+[www.linkedin.com/in/ryan-valera-897796210](https://www.linkedin.com/in/ryan-valera-897796210)
