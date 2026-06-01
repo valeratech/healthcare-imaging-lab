@@ -55,6 +55,32 @@ this failure mode.
 **CIIP knowledge connection:** AE Title management, DICOM addressing model,
 modality registration workflow, association negotiation.
 
+## AE Title 16-Character Limit
+
+**Lab action:** Configured `DicomAet` as `ORTHANC-SCNDRY` on orthanc-secondary.
+The intended value `ORTHANC-SECONDARY` is 17 characters and exceeds the DICOM
+standard limit. The display `Name` field retains `ORTHANC-SECONDARY` — no
+character limit applies to the human-readable name.
+
+**CIIP domain:** DICOM Standard — Application Entity Title Constraints
+
+**Clinical context:**
+The 16-character AET limit is defined in the DICOM standard (PS3.5 Section 9.1)
+and enforced by all compliant implementations. This constraint is frequently
+encountered in production environments when administrators name devices without
+accounting for the limit — a site prefix plus device type plus sequence number
+can easily exceed 16 characters if not planned carefully. Common naming
+conventions in production environments use abbreviated site codes and device
+type identifiers to stay within the limit while remaining meaningful — for
+example `MGH-PACS-01`, `BWH-CT-03`, `CHOP-MR-02`. The distinction between
+the DICOM AET and the human-readable display name is operationally important —
+the AET is what DICOM peers use for association negotiation, while the display
+name is only visible in administrative interfaces. A well-designed naming
+convention documents both values explicitly, as we have done in this lab.
+
+**CIIP knowledge connection:** AE Title constraints, DICOM standard compliance,
+modality naming conventions, association negotiation failure modes.
+
 ## DICOM Port Configuration
 
 **Lab action:** Confirmed `DicomPort : 4242` in `orthanc.json`. Validated
@@ -315,3 +341,35 @@ PACS administrative access.
 **CIIP knowledge connection:** PACS administration workflow, vendor access
 management, jump host architecture, HIPAA audit controls, administrative
 access separation.
+
+## Orthanc Peer Configuration — Store-and-Forward Architecture
+
+**Lab action:** Registered ORTHANC-SCNDRY as a peer on orthanc-primary and
+ORTHANC-PRIMARY as a peer on orthanc-secondary. Peer URLs use VMnet2 PACS
+segment IPs (`192.168.100.x`). Bidirectional connectivity validated via
+`/peers/<peer>/system` REST API endpoint from both nodes.
+
+**CIIP domain:** PACS Architecture — Store-and-Forward Routing and
+Multi-Node Replication
+
+**Clinical context:**
+The Orthanc peer relationship is the foundational building block of PACS
+store-and-forward routing. In production environments, PACS nodes are rarely
+standalone — studies are replicated between primary and secondary archives for
+redundancy, routed to remote reading sites for teleradiology, and forwarded to
+subspecialty archives for cardiology, oncology, or orthopedics workflows. The
+peer model separates routing decisions from DICOM protocol details — once a
+peer is registered, Orthanc handles the HTTP-based transfer autonomously. This
+is distinct from DICOM C-Move, which operates at the DICOM protocol layer and
+requires SCU/SCP configuration on both ends. Understanding when to use Orthanc
+peer routing versus native DICOM C-Move is an operational judgment call that
+depends on whether both endpoints are Orthanc instances or whether one is a
+third-party PACS. The peer URLs in this lab deliberately use the PACS segment
+IPs rather than management IPs — ensuring inter-node replication traffic stays
+on the isolated imaging network, consistent with production VLAN segmentation.
+In production this separation prevents replication traffic from competing with
+clinical workstation access or vendor VPN sessions on the management network.
+
+**CIIP knowledge connection:** PACS store-and-forward routing, multi-node
+replication architecture, peer vs C-Move routing decisions, DICOM network
+topology, imaging VLAN traffic segregation.
