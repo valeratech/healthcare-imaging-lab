@@ -27,7 +27,7 @@ complete the foundational PACS replication and routing architecture.
 | Stage 3 | Network Configuration | ✅ Complete |
 | Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
 | Stage 5 | Orthanc Install and Initial Configuration | ✅ Complete |
-| Stage 6 | Validation | ⬜ Pending |
+| Stage 6 | Validation | ✅ Complete |
 | Stage 7 | Peer Configuration — Node 1 ↔ Node 2 | ⬜ Pending |
 
 ## Build Log
@@ -224,14 +224,14 @@ complete the foundational PACS replication and routing architecture.
 - phase2-stage5-10-orthanc-rest-api-verified.png — REST API /system response confirmed
 - Committed to infrastructure/screenshots/phase2-stage5/
 
-### YYYY-MM-DD — Stage 6 complete: Full stack validation on orthanc-secondary
+### 2026-06-01 — Stage 6 complete: Full stack validation on orthanc-secondary
 
-- Orthanc Explorer: accessible at http://<!-- 192.168.175.xxx -->:8042
+- Orthanc Explorer: accessible at http://192.168.175.130:8042
   - Browser authentication prompt confirmed
   - Credentials accepted: admin user
   - Instance name confirmed: ORTHANC-SECONDARY
   - Page confirmed: "ORTHANC-SECONDARY » Lookup studies"
-- DICOM port validation: nc -zv <!-- 192.168.175.xxx --> 4242
+- DICOM port validation: nc -zv 192.168.175.130 4242
   - TCP connection confirmed — port 4242 listening
 - REST API /patients: [] — empty database confirmed
 - REST API /studies: [] — empty database confirmed
@@ -244,16 +244,19 @@ complete the foundational PACS replication and routing architecture.
   - PostgreSQL backend active — all counts accurate
 - Full stack confirmed operational:
   - Ubuntu 24.04.4 LTS
-  - PostgreSQL <!-- 16.x --> index backend
-  - Orthanc <!-- 1.12.2 --> with PostgreSQL plugin
-  - DICOM AE: ORTHANC-SECONDARY port 4242
+  - PostgreSQL 16.14 index backend
+  - Orthanc 1.12.2 with PostgreSQL plugin
+  - DICOM AE: ORTHANC-SCNDRY port 4242
   - REST API port 8042 with authentication
 - Stage 6 status: ✅ Complete
 
-### YYYY-MM-DD — Documentation: Node 2 Stage 6 screenshots curated and committed
+### 2026-06-01 — Documentation: Node 2 Stage 6 screenshots curated and committed
 
-- <!-- N --> screenshots kept — execution order sequence
-- <!-- stage6-01-description.png -->
+- 4 screenshots kept — execution order sequence
+- phase2-stage6-01-orthanc-secondary-browser-auth-dialog.png — browser authentication prompt
+- phase2-stage6-02-orthanc-secondary-explorer-empty-state.png — Orthanc Explorer UI loaded
+- phase2-stage6-03-rhcontrol-nc-port-4242-reachable.png — nc TCP connection confirmed
+- phase2-stage6-04-rhcontrol-curl-rest-api-statistics-empty.png — REST API routes and statistics confirmed
 - Committed to infrastructure/screenshots/phase2-stage6/
 
 ### YYYY-MM-DD — Stage 7 complete: Peer configuration — ORTHANC-PRIMARY ↔ ORTHANC-SECONDARY
