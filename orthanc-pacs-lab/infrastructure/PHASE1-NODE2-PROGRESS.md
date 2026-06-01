@@ -14,7 +14,7 @@ complete the foundational PACS replication and routing architecture.
 **Node target:**
 - Hostname: orthanc-secondary
 - PACS segment IP: 192.168.100.20/24
-- AE Title: ORTHANC-SECONDARY
+- AE Title: ORTHANC-SCNDRY (display name: ORTHANC-SECONDARY)
 - DICOM port: 4242
 - REST API port: 8042
 
@@ -38,7 +38,7 @@ complete the foundational PACS replication and routing architecture.
   node-specific values substituted
 - Hostname target: orthanc-secondary
 - PACS segment IP target: 192.168.100.20/24
-- AE Title target: ORTHANC-SECONDARY
+- AE Title target: ORTHANC-SCNDRY (display name: ORTHANC-SECONDARY)
 - Username: valeratech (same as Node 1)
 - PostgreSQL database and user: orthanc/orthanc — separate instance, no conflict
 - Ports: 4242 (DICOM), 8042 (REST API) — isolated node, no conflict
@@ -58,10 +58,10 @@ complete the foundational PACS replication and routing architecture.
 ### 2026-05-29 — Documentation: Node 2 Stage 1 screenshots curated and committed
 
 - 4 screenshots kept — execution order sequence
-- stage1-01-vm-install-os-later.png — OS install later selected
-- stage1-02-vm-name-and-location.png — VM name orthanc-secondary confirmed
-- stage1-03-vm-creation-summary.png — creation summary reviewed
-- stage1-04-vm-hardware-settings.png — hardware spec and dual NIC confirmed
+- phase2-stage1-01-vm-install-os-later.png — OS install later selected
+- phase2-stage1-02-vm-name-and-location.png — VM name orthanc-secondary confirmed
+- phase2-stage1-03-vm-creation-summary.png — creation summary reviewed
+- phase2-stage1-04-vm-hardware-settings.png — hardware spec and dual NIC confirmed
 - Committed to infrastructure/screenshots/phase2-stage1/
 
 ### 2026-05-29 — Stage 2 complete: Ubuntu 24.04.4 LTS installed on orthanc-secondary
@@ -97,14 +97,14 @@ complete the foundational PACS replication and routing architecture.
 ### 2026-05-29 — Documentation: Node 2 Stage 2 screenshots curated and committed
 
 - 8 screenshots kept — execution order sequence
-- stage2-01-installer-no-update.png — installer update skipped
-- stage2-02-minimized-install-selected.png — Ubuntu Server minimized confirmed
-- stage2-03-storage-no-lvm.png — simple partition layout, no LVM
-- stage2-04-profile-configuration.png — hostname and username configured
-- stage2-05-ssh-openssh-enabled.png — OpenSSH server enabled
-- stage2-06-snaps-none-selected.png — no snaps installed
-- stage2-07-installation-complete.png — installation complete
-- stage2-08-post-install-validation.png — hostnamectl and ip link show confirmed
+- phase2-stage2-01-installer-no-update.png — installer update skipped
+- phase2-stage2-02-minimized-install-selected.png — Ubuntu Server minimized confirmed
+- phase2-stage2-03-storage-no-lvm.png — simple partition layout, no LVM
+- phase2-stage2-04-profile-configuration.png — hostname and username configured
+- phase2-stage2-05-ssh-openssh-enabled.png — OpenSSH server enabled
+- phase2-stage2-06-snaps-none-selected.png — no snaps installed
+- phase2-stage2-07-installation-complete.png — installation complete
+- phase2-stage2-08-post-install-validation.png — hostnamectl and ip link show confirmed
 - Committed to infrastructure/screenshots/phase2-stage2/
 
 ### 2026-05-29 — Management node SSH access established to orthanc-secondary
@@ -132,13 +132,14 @@ complete the foundational PACS replication and routing architecture.
 
 ### 2026-05-29 — Documentation: Node 2 Stage 3 screenshots curated and committed
 
-- 6 screenshots kept — execution order sequence
-- phase2-stage3-01-console-login-confirmed.png — SSH from rhcontrol established
+- 7 screenshots kept — execution order sequence
+- phase2-stage3-01-pre-state-ens34-down.png — baseline ens34 DOWN state confirmed
 - phase2-stage3-02-os-release-verified.png — Ubuntu 24.04.4 LTS confirmed
-- phase2-stage3-03-netplan-cloud-init-existing.png — existing Netplan inspected
-- phase2-stage3-04-netplan-pacs-static-config.png — 99-pacs-static.yaml created
-- phase2-stage3-05-pacs-static-file-permissions.png — 600 permissions confirmed
-- phase2-stage3-06-ens34-applied-pacs-ping-verified.png — 192.168.100.20/24 UP, ping to Node 1 confirmed
+- phase2-stage3-03-ens33-ip-confirmed.png — ens33 NAT IP 192.168.175.130 confirmed
+- phase2-stage3-04-netplan-cloud-init-existing.png — existing Netplan inspected
+- phase2-stage3-05-netplan-pacs-static-config.png — 99-pacs-static.yaml created
+- phase2-stage3-06-pacs-static-file-permissions.png — 600 permissions confirmed
+- phase2-stage3-07-ens34-applied-pacs-ping-verified.png — 192.168.100.20/24 UP, ping to Node 1 confirmed
 - Committed to infrastructure/screenshots/phase2-stage3/
 
 ### 2026-05-30 — Stage 4 complete: PostgreSQL installed and configured on orthanc-secondary
@@ -293,7 +294,7 @@ complete the foundational PACS replication and routing architecture.
 - All 7 stages completed and validated
 - orthanc-secondary node fully operational
 - PostgreSQL backend confirmed active
-- DICOM server listening on port 4242 — AE Title ORTHANC-SECONDARY
+- DICOM server listening on port 4242 — AE Title ORTHANC-SCNDRY (display name: ORTHANC-SECONDARY)
 - REST API listening on port 8042 — authentication enforced
 - Orthanc Explorer accessible and confirmed
 - Peer relationship established: ORTHANC-PRIMARY ↔ ORTHANC-SECONDARY
