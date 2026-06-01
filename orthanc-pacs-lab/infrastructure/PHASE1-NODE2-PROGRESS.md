@@ -28,7 +28,7 @@ complete the foundational PACS replication and routing architecture.
 | Stage 4 | PostgreSQL Install and Configuration | ✅ Complete |
 | Stage 5 | Orthanc Install and Initial Configuration | ✅ Complete |
 | Stage 6 | Validation | ✅ Complete |
-| Stage 7 | Peer Configuration — Node 1 ↔ Node 2 | ⬜ Pending |
+| Stage 7 | Peer Configuration — Node 1 ↔ Node 2 | ✅ Complete |
 
 ## Build Log
 
@@ -260,10 +260,10 @@ complete the foundational PACS replication and routing architecture.
 - phase2-stage6-04-rhcontrol-curl-rest-api-statistics-empty.png — REST API routes and statistics confirmed
 - Committed to infrastructure/screenshots/phase2-stage6/
 
-### YYYY-MM-DD — Stage 7 complete: Peer configuration — ORTHANC-PRIMARY ↔ ORTHANC-SECONDARY
+### 2026-06-01 — Stage 7 complete: Peer configuration — ORTHANC-PRIMARY ↔ ORTHANC-SCNDRY
 
 - Peer registration on orthanc-primary (/etc/orthanc/orthanc.json):
-  - Peers entry: ORTHANC-SECONDARY
+  - Peers entry: ORTHANC-SCNDRY
   - URL: http://192.168.100.20:8042
   - Username: admin
   - Password: secured
@@ -274,30 +274,35 @@ complete the foundational PACS replication and routing architecture.
   - Password: secured
 - Both nodes restarted: systemctl restart orthanc
 - Peer connectivity validation:
-  - REST API /peers from orthanc-primary: ORTHANC-SECONDARY listed
+  - REST API /peers from orthanc-primary: ORTHANC-SCNDRY listed
   - REST API /peers from orthanc-secondary: ORTHANC-PRIMARY listed
-  - /peers/ORTHANC-SECONDARY/system from Node 1: ORTHANC-SECONDARY confirmed reachable
+  - /peers/ORTHANC-SCNDRY/system from Node 1: ORTHANC-SCNDRY confirmed reachable
   - /peers/ORTHANC-PRIMARY/system from Node 2: ORTHANC-PRIMARY confirmed reachable
 - Note: Peer communication traverses VMnet2 PACS segment (192.168.100.0/24) —
   isolated from management network. Mirrors production PACS VLAN architecture
   where inter-system replication uses dedicated imaging network, not general LAN.
 - Stage 7 status: ✅ Complete
 
-### YYYY-MM-DD — Documentation: Stage 7 screenshots curated and committed
+### 2026-06-01 — Documentation: Stage 7 screenshots curated and committed
 
-- <!-- N --> screenshots kept — execution order sequence
-- <!-- stage7-01-description.png -->
+- 6 screenshots kept — execution order sequence
+- phase2-stage7-01-orthanc-primary-peers-config-placeholder-password.png — ORTHANC-SCNDRY peer entry configured on orthanc-primary
+- phase2-stage7-02-orthanc-primary-service-restart-active.png — orthanc-primary restarted, active confirmed
+- phase2-stage7-03-orthanc-secondary-peers-config-placeholder-password.png — ORTHANC-PRIMARY peer entry configured on orthanc-secondary
+- phase2-stage7-04-orthanc-secondary-service-restart-active.png — orthanc-secondary restarted, active confirmed
+- phase2-stage7-05-rhcontrol-curl-primary-peer-scndry-registered.png — ORTHANC-SCNDRY peer reachable from orthanc-primary confirmed
+- phase2-stage7-06-rhcontrol-curl-secondary-peer-primary-registered.png — ORTHANC-PRIMARY peer reachable from orthanc-secondary confirmed
 - Committed to infrastructure/screenshots/phase2-stage7/
 
-### YYYY-MM-DD — Node 2 build complete
+### 2026-06-01 — Node 2 build complete
 
 - All 7 stages completed and validated
 - orthanc-secondary node fully operational
-- PostgreSQL backend confirmed active
+- PostgreSQL 16.14 backend confirmed active
 - DICOM server listening on port 4242 — AE Title ORTHANC-SCNDRY (display name: ORTHANC-SECONDARY)
 - REST API listening on port 8042 — authentication enforced
 - Orthanc Explorer accessible and confirmed
-- Peer relationship established: ORTHANC-PRIMARY ↔ ORTHANC-SECONDARY
+- Peer relationship established: ORTHANC-PRIMARY ↔ ORTHANC-SCNDRY
 - Inter-node communication over VMnet2 PACS segment confirmed
 - Repository documentation current through Node 2 closure
-- Next: Phase 2 — <!-- TBD -->
+- Next: Phase 2 — TBD
