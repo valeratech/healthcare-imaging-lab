@@ -90,6 +90,12 @@ No real patient data is used at any point. PHI audit and security
 exercises operate exclusively against synthetic or publicly
 anonymized data.
 
+## Contributions and Feedback
+
+This is an active learning repository. If you spot technical errors,
+inaccuracies, or have suggestions for improvement, feel free to open
+an issue or reach out directly via LinkedIn.
+
 ## Contact
 
 [linkedin.com/in/ryan-valera-897796210](https://www.linkedin.com/in/ryan-valera-897796210)
