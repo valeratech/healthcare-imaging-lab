@@ -14,6 +14,7 @@ environments.
 - Apply security hardening within clinical operational constraints
 - Instrument the environment with production-realistic monitoring
 - Diagnose and resolve synthetic PACS incident scenarios
+- Simulate HL7/DICOM integration workflows via Mirth Connect
 
 ## Architecture Overview
 
@@ -38,6 +39,7 @@ diagram documented in** [`infrastructure/`](./infrastructure/)
 | Operating System | Ubuntu 24.04.4 LTS |
 | Orthanc Version | 1.12.2 |
 | Database Backend | PostgreSQL |
+| Integration Engine | Mirth Connect — planned Phase 7 |
 | PACS Segment | 192.168.100.0/24 — VMnet2, isolated, no DHCP |
 | Internet Access | VMnet8 NAT — package management only |
 | Datasets | TCIA public anonymized datasets |
@@ -56,6 +58,7 @@ diagram documented in** [`infrastructure/`](./infrastructure/)
 | Phase 4 | Security Layer | [security/](./security/) | 🔲 Planned |
 | Phase 5 | Monitoring and Observability | [monitoring/](./monitoring/) | 🔲 Planned |
 | Phase 6 | Synthetic Incident Scenarios | [protocol-analysis/](./protocol-analysis/) | 🔲 Planned |
+| Phase 7 | Mirth Connect — HL7/DICOM Integration | [mirth-connect/](./mirth-connect/) | 🔲 Planned |
 
 ## CIIP Knowledge Domain Coverage
 
@@ -66,7 +69,7 @@ knowledge domains across all phases.
 |--------|----------------------|
 | DICOM Standard | Phases 1, 2 — infrastructure and protocol analysis |
 | PACS Architecture and Administration | Phases 1, 3, 5 |
-| Healthcare Interoperability | Phase 2 — C-Move, Phase 6 — scenarios |
+| Healthcare Interoperability | Phase 2 — C-Move, Phase 7 — HL7/DICOM via Mirth Connect |
 | Healthcare IT Operations | Phase 5 — monitoring, Phase 6 — incidents |
 | Informatics and Data Management | Phase 3 — scripts 1, 3, 5 |
 | Security and Compliance | Phase 4 — full security layer |
@@ -81,6 +84,7 @@ orthanc-pacs-lab/
 ├── automation/                ← Phase 3: Python scripts
 ├── security/                  ← Phase 4: hardening, threat model
 ├── monitoring/                ← Phase 5: Grafana, Prometheus
+├── mirth-connect/             ← Phase 7: HL7/DICOM integration
 └── docs/                      ← Supporting docs, glossary, CIIP mapping
 ```
 
