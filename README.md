@@ -26,6 +26,7 @@ evaluated on its own merits.
 | Operating System | Ubuntu 24.04.4 LTS |
 | Primary Platform | Orthanc DICOM Server 1.12.2 |
 | Database Backend | PostgreSQL |
+| Integration Engine | Mirth Connect — planned |
 | Network Simulation | Dedicated isolated PACS segment + NAT management segment |
 | Management Node | RHEL 10 control node — SSH administration |
 | Datasets | TCIA public anonymized datasets — no real patient data |
@@ -39,8 +40,8 @@ evaluated on its own merits.
 
 Multi-phase lab building a functional DICOM/PACS environment using
 Orthanc as the primary platform. Covers core infrastructure, protocol
-analysis, REST API automation, security hardening, and operational
-monitoring.
+analysis, REST API automation, security hardening, operational
+monitoring, and HL7/DICOM integration via Mirth Connect.
 
 | Phase | Focus | Status |
 |-------|-------|--------|
@@ -51,6 +52,7 @@ monitoring.
 | Phase 4 | Security Layer | 🔲 Planned |
 | Phase 5 | Monitoring and Observability | 🔲 Planned |
 | Phase 6 | Synthetic Incident Scenarios | 🔲 Planned |
+| Phase 7 | Mirth Connect — HL7/DICOM Integration | 🔲 Planned |
 
 ## Phase 1 — What Was Built
 
@@ -76,9 +78,9 @@ the isolated PACS segment.
 ## Standards and Frameworks
 
 - DICOM (Digital Imaging and Communications in Medicine)
+- HL7 — ADT feeds, worklist integration, RIS/PACS order routing
 - HIPAA Security Rule — Technical Safeguards
 - SIIM CIIP (Certified Imaging Informatics Professional) knowledge domains
-- HL7 — where applicable to imaging workflow integration
 
 ## Important Note
 
@@ -90,4 +92,4 @@ anonymized data.
 
 ## Contact
 
-[www.linkedin.com/in/ryan-valera-897796210](https://www.linkedin.com/in/ryan-valera-897796210)
+[linkedin.com/in/ryan-valera-897796210](https://www.linkedin.com/in/ryan-valera-897796210)
