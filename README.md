@@ -7,10 +7,10 @@ systems engineering.
 
 ## Background
 
-I am an infrastructure and security engineer with 20+ years of enterprise
-IT experience executing a deliberate transition into healthcare imaging
-systems. This lab compounds existing depth in Linux administration,
-enterprise networking, security engineering, and automation into
+I am an infrastructure and security engineer executing a deliberate 
+transition into healthcare imaging systems. This lab leverages an 
+extensive technical foundation in Linux administration, enterprise 
+networking, security engineering, and automation to build advanced, 
 imaging-specific infrastructure capability.
 
 No prior clinical IT experience — that is the point. This repository
